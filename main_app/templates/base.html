@@ -12,9 +12,10 @@
 <body>
     <nav>
         <p class="align-left">Car Collector</p>
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/cars">All Cars</a>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'about' %}">About</a>
+        <a href="{% url 'cars_create' %}">Add a Car</a>
+        <a href="{% url 'cars_index' %}">All Cars</a>
     </nav>
     {% block content %}
     {% endblock %}  

@@ -6,4 +6,9 @@
 <p>Car Model: {{car.model}}</p>
 <p>Year: {{car.year}}</p>
 
+<div>
+    <a href="{% url 'cars_update' car.id %}">Edit</a>
+    <a href="{% url 'cars_delete' car.id %}">Delete</a>
+</div>
+
 {% endblock %}
