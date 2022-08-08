@@ -1,17 +1,6 @@
 from django.shortcuts import render
 
-class Car:
-  def __init__(self, make, model, year):
-    self.make = make
-    self.model = model
-    self.year = year
-
-cars = [
-    Car('Honda', 'Accord', '2016'),
-    Car('BMW','135i','2009'),
-    Car('Tesla','Model 3','2022'),
-    Car('Ford', 'Mustang','2019')
-]
+from .models import Car
 
 
 # Create your views here.
@@ -23,6 +12,13 @@ def about(request):
     return render(request, 'about.html')
 
 def cars_index(request):
+    cars = Car.objects.all()
     return render(request, 'cars/index.html', {
         'cars': cars,
+    })
+
+def cars_detail(request, car_id):
+    car = Car.objects.get(id=car_id)
+    return render(request, 'cars/detail.html', {
+        'car':car
     })
