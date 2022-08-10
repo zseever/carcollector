@@ -2,13 +2,83 @@
 {% block content %}
 
 <h1>Car Details</h1>
-<p>Car Make: {{car.make}}</p>
-<p>Car Model: {{car.model}}</p>
-<p>Year: {{car.year}}</p>
-
-<div>
-    <a href="{% url 'cars_update' car.id %}">Edit</a>
-    <a href="{% url 'cars_delete' car.id %}">Delete</a>
+<div class="container">
+    <div class="car-details">
+        <p>Car Make: {{car.make}}</p>
+        <p>Car Model: {{car.model}}</p>
+        <p>Year: {{car.year}}</p>
+        <div>
+            <a href="{% url 'cars_update' car.id %}">Edit</a>
+            <a href="{% url 'cars_delete' car.id %}">Delete</a>
+        </div>
+    </div>
+    <div class="car-reviews">
+        <form action="{% url 'add_review' car.id %}" method="POST">
+            {% csrf_token %}
+            {{ review_form.as_p }}
+            <button type="submit">Submit Review!</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Rating</th>
+                    <th>Review</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for review in car.review_set.all %}
+                <tr>
+                    <td>{{ review.date }}</td>
+                    <td>{{ review.rating }}</td>
+                    <td>{{ review.desc }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
+<div class="drivers">
+    <div>
+        <h2>Drivers</h2>
+        <ul>
+            {% for driver in car.driver_set.all %}
+                <li>
+                    {{ driver.name }} - {{ driver.state }}
+                    <form class='inline-button' action="{% url 'unassoc_driver' car.id driver.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit">X</button>
+                    </form></li>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div>
+        <h2>Available Drivers</h2>
+        <ul>
+            {% if drivers.count %}
+                {% for driver in drivers %}
+                    <li>
+                        {{ driver.name }} - {{ driver.state }} 
+                        <form class='inline-button' action="{% url 'assoc_driver' car.id driver.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit">+</button>
+                        </form></li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+</div>
+
+<script>
+  const dateEl = document.getElementById('id_date');
+  M.Datepicker.init(dateEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  });
+      
+</script>
 
 {% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Driver List</h1>
+
+{% for driver in driver_list %}
+    <div class="card">
+        <p>{{ driver }}</p>
+        <p>{{ driver.state }}</p>
+        <ul>
+            {% for car in driver.cars.all %}
+                <li>{{ car }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endfor %}
+
+{% endblock %}

@@ -57,3 +57,51 @@ a:hover {
 .card > p {
     margin:1vh 0;
 }
+
+.container {
+    display:grid;
+    grid-template-columns: 2fr 3fr;
+    gap:2vmin;
+}
+
+.car-details {
+    border:0.3vmin solid black;
+    border-radius: 0.5vmin;
+    text-align: center;
+}
+
+
+
+th, td {
+    border:0.3vmin solid black;
+    width:8vw;
+    text-align: center;
+}
+
+th:last-child,td:last-child {
+    width:15vw;
+}
+
+button {
+    background-color:rgb(248, 209, 162);
+    border-radius: 0.3vmin;
+    height: 3vh;
+    width: 10vw;
+    font-size:1.5vmin;
+    cursor:pointer;
+}
+
+.drivers {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr
+}
+
+li {
+    margin-bottom:1vh;
+}
+
+.inline-button {
+    display:inline;
+    width:1vw;
+}
